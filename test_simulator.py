@@ -44,3 +44,17 @@ class TestSimulator(TestCase):
         self.sim.set_world(world)
         self.assertIsInstance(self.sim.get_world(), World)
         self.assertIs(self.sim.get_world(), world)
+
+    def test_cell_survive(self):
+        # minder dan 2 levende cellen = dood
+        self.assertEqual(self.sim.check_cell_survive([0, 0, 0, 0, 0, 0, 0, 0]), 0)
+        self.assertEqual(self.sim.check_cell_survive([0, 1, 0, 0, 0, 0, 0, 0]), 0)
+
+        # 2 of 3 levende cellen = levend
+        self.assertEqual(self.sim.check_cell_survive([0, 0, 0, 1, 0, 1, 0, 0]), 1)
+        self.assertEqual(self.sim.check_cell_survive([0, 0, 0, 1, 1, 1, 0, 0]), 1)
+
+        # meer dan 3 levende cellen = dood
+        self.assertEqual(self.sim.check_cell_survive([0, 1, 1, 0, 1, 1, 0, 1]), 0)
+
+
