@@ -1,3 +1,5 @@
+import copy
+
 from World import *
 
 class Simulator:
@@ -19,6 +21,10 @@ class Simulator:
             self.world = world
 
     def check_cell_survive(self, cell_neighbours):
+        """
+        :param cell_neighbours: an array of the values of the neighbours cells
+        :return: the state of the cel
+        """
 
         if sum(cell_neighbours) < 2 or sum(cell_neighbours) >3:
             return 0
@@ -34,10 +40,15 @@ class Simulator:
         self.generation += 1
 
         #TODO: Do something to evolve the generation
+
+        world_new = copy.deepcopy(self.world)
+
         for x in range(0, self.get_world().height):
             for y in range(0, self.get_world().width):
                 all_neighbours = self.get_world().get_neighbours(x, y)
-                self.get_world().set(x, y, self.check_cell_survive(all_neighbours))
+                world_new.set(x, y, self.check_cell_survive(all_neighbours))
+
+        self.set_world(world_new)
         return self.world
 
     def get_generation(self):
