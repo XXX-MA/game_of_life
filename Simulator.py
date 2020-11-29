@@ -18,6 +18,13 @@ class Simulator:
         else:
             self.world = world
 
+    def check_cell_survive(self, cell_neighbours):
+
+        if sum(cell_neighbours) < 2 or sum(cell_neighbours) >3:
+            return 0
+        else:
+            return  1
+
     def update(self) -> World:
         """
         Updates the state of the world to the next generation. Uses rules for evolution.
