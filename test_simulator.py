@@ -47,14 +47,19 @@ class TestSimulator(TestCase):
 
     def test_cell_survive(self):
         # minder dan 2 levende cellen = dood
-        self.assertEqual(self.sim.check_cell_survive([0, 0, 0, 0, 0, 0, 0, 0]), 0)
-        self.assertEqual(self.sim.check_cell_survive([0, 1, 0, 0, 0, 0, 0, 0]), 0)
+        self.assertEqual(self.sim.check_cell_survive((2,3,5, 7, 8),[0, 0, 0, 0, 0, 0, 0, 0]), 0)
+        self.assertEqual(self.sim.check_cell_survive((2,3,5, 7, 8),[0, 1, 0, 0, 0, 0, 0, 0]), 0)
 
         # 2 of 3 levende cellen = levend
-        self.assertEqual(self.sim.check_cell_survive([0, 0, 0, 1, 0, 1, 0, 0]), 1)
-        self.assertEqual(self.sim.check_cell_survive([0, 0, 0, 1, 1, 1, 0, 0]), 1)
+        self.assertEqual(self.sim.check_cell_survive((2,3,5, 7, 8),[0, 0, 0, 1, 0, 1, 0, 0]), 1)
+        self.assertEqual(self.sim.check_cell_survive((2,3,5, 7, 8),[0, 0, 0, 1, 1, 1, 0, 0]), 1)
 
         # meer dan 3 levende cellen = dood
         self.assertEqual(self.sim.check_cell_survive([0, 1, 1, 0, 1, 1, 0, 1]), 0)
 
 
+    def get_rule_set(self):
+
+        self.assertEqual(self.sim.get_rule_set("B358/S237"), (2,3,5, 7, 8))
+        self.assertEqual(self.sim.get_ruleset("B3/S23"), (2, 3))
+        self.assertEqual(self.sim.get_ruleset("B/S"), ())
